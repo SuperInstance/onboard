@@ -10,6 +10,11 @@
 
 set -euo pipefail
 
+# Source modular installers
+for f in installers/*.sh; do
+  [ -f "$f" ] && source "$f"
+done
+
 REPO=""
 TOOLS=()
 MODE="add"
@@ -33,6 +38,7 @@ Tools:
   git-storage      📦  Git-backed state (coming soon)
   i2i-vessel       🧩  Agent communication (coming soon)
   ring-buffer      🔊  Audio pipeline guard (coming soon)
+  notebook         📓  A2A Notebook Agent (codespace-native agent + dashboard)
 
 Examples:
   onboard SuperInstance/pincher --add stunt-double,git-storage
@@ -642,6 +648,7 @@ onboard_existing() {
       git-storage) install_git_storage "$tmpdir" ;;
       i2i-vessel) install_i2i_vessel "$tmpdir" ;;
       ring-buffer) install_ring_buffer "$tmpdir" ;;
+      notebook) install_notebook "$tmpdir" ;;
       *) echo "  ⚠️ Unknown tool: $tool" ;;
     esac
   done
